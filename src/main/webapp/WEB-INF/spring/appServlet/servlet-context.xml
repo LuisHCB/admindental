@@ -21,6 +21,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
+	<!--  ESTE LE DICE A SPRING DONDE BUSCAR
+	     CLASES CON ANNOTATIONS, tenemos que ser especificos con estos paquetes para no tener errores
+	     ya que se pueden mezclar
+	 -->
 	<context:component-scan base-package="com.entityse.admindental" />
 	
 	

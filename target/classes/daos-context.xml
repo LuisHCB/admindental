@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="sessionFactory" ref="sessionFactory" ></property>
+	</bean>
+	<!--  
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<context:component-scan base-package="org.spring.upiita.daos" /> -->
+   	
+	<bean id="dataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	 <property name="driverClass" value="com.mysql.jdbc.Driver" ></property>
+	 <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/dbsistemarts"></property>
+	 <property name="user" value="root"></property>
+	 <property name="password" value="1111"></property>
+	 <property name="acquireIncrement" value ="3"></property>
+	 <property name="minPoolSize" value ="3"></property>
+	 <property name="maxPoolSize" value = "15"></property>
+	 <property name="maxIdleTime" value="100"></property>	
+	</bean>
+	
+	<!-- Declaracion del sessionFactory para Hibernate -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">		
+		<!-- base de datos a la que se conectara -->
+	      <property name="dataSource" ref="dataSource" ></property>
+	    <!-- paquetes donde escaneara las entidades para hibernate -->
+	      <property name="packagesToScan" value="com.entityse.admindental.entidades"></property>
+	    <!-- propiedades para el uso de hibernate -->
+	      <property name="hibernateProperties">
+	          <map>
+	            <!-- SI USAN UNA BASE DIFERENTE CAMBIAN 2 COSAS: - EL DIALECTO - EL DATASOURCE -->
+				<entry key="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+				<entry key="hibernate.show_sql" value="true" /> <!-- Mostrara en consola las consultas que hace hibernate en sql -->
+	          </map>
+	      </property>	    
+	</bean>
+	
+</beans>
